@@ -1,0 +1,3 @@
+include MANIFEST.in
+include README.rst
+recursive-include chartkick/js *
