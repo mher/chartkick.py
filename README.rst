@@ -3,7 +3,10 @@ Chartkick.py
 
 Create beautiful Javascript charts with minimal code. Python port of Chartkick_
 
+Supports Google Charts and Highcharts_ and works with most browsers (including IE 6)
+
 .. _Chartkick: http://chartkick.com
+.. _Highcharts: http://highcharts.com
 
 Usage
 -----
@@ -56,3 +59,8 @@ Add chartkick to INSTALLED_APPS and STATICFILES_DIRS: ::
 And chartkick scripts to the header of base template: ::
 
     {% include_chartkick_scripts googlecharts %}
+
+TODO
+----
+
+- Flask/Jinja2 support
