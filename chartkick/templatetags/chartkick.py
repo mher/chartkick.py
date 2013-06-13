@@ -32,9 +32,16 @@ new Chartkick.{name}(document.getElementById("{id}"), {data}, {options});
         self.variable = template.Variable(variable)
         self.options = options or {}
 
+        for name, value in self.options.items():
+            self.options[name] = template.Variable(value)
+
     def render(self, context):
         options = dict(id='chart-%s' % self.id.next(), height='300px')
         options.update(self.options)
+
+        for name, value in options.items():
+            if isinstance(value, template.Variable):
+                options[name] = value.resolve(context)
 
         data = json.dumps(self.variable.resolve(context))
         return self.html.format(name=self.name, data=data,

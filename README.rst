@@ -19,7 +19,7 @@ And draw charts: ::
 
     {% line_chart data %}
 
-    {% pie_chart data with height=400px %}
+    {% pie_chart data with height='400px' %}
 
     {% column_chart data with min=400 max=1000 %}
 
