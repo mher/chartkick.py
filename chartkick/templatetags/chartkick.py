@@ -78,7 +78,8 @@ def include_chartkick_scripts(token):
     if token.lower() == 'googlecharts' or not token:
         js = '<script src="http://www.google.com/jsapi"></script>'
     elif token.lower() == 'highcharts':
-        js = '<script src="http://code.highcharts.com/highcharts.js"></script>'
+        js = '<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>\n\t'\
+             '<script src="http://code.highcharts.com/highcharts.js"></script>\n\t'
     else:
         raise template.TemplateSyntaxError("Invalid argument: '%s'" % token)
     js += '<script src="{static}/chartkick.js"></script>'
