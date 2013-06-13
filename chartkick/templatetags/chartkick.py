@@ -30,14 +30,15 @@ new Chartkick.{name}(document.getElementById("{id}"), {data}, {options});
     def __init__(self, name, variable, options=None):
         self.name = name
         self.variable = template.Variable(variable)
-        self.options = dict(id='chart-%s' % self.id.next(), height='300px')
-        self.options.update(options or {})
+        self.options = options or {}
 
     def render(self, context):
+        options = dict(id='chart-%s' % self.id.next(), height='300px')
+        options.update(self.options)
+
         data = json.dumps(self.variable.resolve(context))
-        options = json.dumps(self.options)
-        return self.html.format(name=self.name, data=data, options=options,
-                                **self.options)
+        return self.html.format(name=self.name, data=data,
+                                options=json.dumps(options), **options)
 
 
 def chart(name, parser, token):
