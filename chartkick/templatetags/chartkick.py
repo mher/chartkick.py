@@ -82,5 +82,9 @@ def include_chartkick_scripts(token):
              '<script src="http://code.highcharts.com/highcharts.js"></script>\n\t'
     else:
         raise template.TemplateSyntaxError("Invalid argument: '%s'" % token)
-    js += '<script src="{static}/chartkick.js"></script>'
+        
+    js += '<script src="{static}'
+    if not settings.STATIC_URL.endswith("/"): js += "/"
+    js += 'chartkick.js"></script>'
+
     return js.format(static=settings.STATIC_URL)
