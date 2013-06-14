@@ -49,9 +49,9 @@ new Chartkick.{name}(document.getElementById("{id}"), {data}, {options});
 
 
 def chart(name, parser, token):
-    try:
-        args = token.split_contents()
-    except ValueError:
+    args = token.split_contents()
+
+    if len(args) < 2:
         msg = '%r statement requires at least one argument' % token.split_contents()[0]
         raise template.TemplateSyntaxError(msg)
 
@@ -74,13 +74,13 @@ register.tag('column_chart', functools.partial(chart, 'ColumnChart'))
 
 
 @register.simple_tag
-def include_chartkick_scripts(token):
-    if token.lower() == 'googlecharts' or not token:
+def include_chartkick_scripts(library=None):
+    if not library or library.lower() == 'googlecharts':
         js = '<script src="http://www.google.com/jsapi"></script>'
-    elif token.lower() == 'highcharts':
+    elif library.lower() == 'highcharts':
         js = '<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>\n\t'\
              '<script src="http://code.highcharts.com/highcharts.js"></script>\n\t'
     else:
-        raise template.TemplateSyntaxError("Invalid argument: '%s'" % token)
+        raise template.TemplateSyntaxError("Invalid argument: '%s'" % library)
     js += '<script src="{static}/chartkick.js"></script>'
     return js.format(static=settings.STATIC_URL.rstrip('/'))
