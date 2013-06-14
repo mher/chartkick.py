@@ -23,7 +23,7 @@ And draw charts: ::
 
     {% column_chart data with min=400 max=1000 %}
 
-*data* is context variable passed to the template: ::
+*data* is a context variable passed to the template: ::
 
     def view(request):
         data = {'Strawberry': 23, 'Apple': 21, 'Grape': 13, 'Blueberry': 44, 'Banana': 22}
@@ -58,7 +58,11 @@ Add chartkick to INSTALLED_APPS and STATICFILES_DIRS: ::
 
 And chartkick scripts to the header of base template: ::
 
-    {% include_chartkick_scripts googlecharts %}
+    {% include_chartkick_scripts 'GoogleCharts' %}
+
+Or: ::
+
+    {% include_chartkick_scripts 'HighCharts' %}
 
 TODO
 ----
