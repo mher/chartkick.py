@@ -15,6 +15,7 @@ settings.INSTALLED_APPS = ('chartkick',)
 settings.STATICFILES_DIRS = (chartkick.js(),)
 settings.STATIC_URL = ''
 
+
 class TestsBase(object):
 
     TemplateSyntaxError = None
@@ -23,7 +24,8 @@ class TestsBase(object):
         raise NotImplementedError
 
     def test_missing_vaiable(self):
-        self.assertRaises(self.TemplateSyntaxError, self.render, '{% line_chart %}')
+        self.assertRaises(self.TemplateSyntaxError,
+                          self.render, '{% line_chart %}')
 
     def test_empty(self):
         chart = self.render('{% line_chart data %}', dict(data={}))

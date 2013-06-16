@@ -42,8 +42,9 @@ def chart(name, parser, token):
     args = token.split_contents()
 
     if len(args) < 2:
-        msg = '%r statement requires at least one argument' % token.split_contents()[0]
-        raise template.TemplateSyntaxError(msg)
+        raise template.TemplateSyntaxError(
+                '%r statement requires at least one argument' %
+                token.split_contents()[0])
 
     options = None
     if len(args) > 2:

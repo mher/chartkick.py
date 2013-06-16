@@ -48,9 +48,9 @@ class ChartExtension(Extension):
         return nodes.CallBlock(self.call_method('_render', args),
                                [], [], []).set_lineno(chart_tag.lineno)
 
-    def _render(self, data , caller, **kwargs):
+    def _render(self, data, caller, **kwargs):
         # jinja2 prepends 'l_' to keys
-        kwargs = {k[2:]:v for (k, v) in kwargs.items()}
+        kwargs = {k[2:]: v for (k, v) in kwargs.items()}
 
         self.environment.options.update(kwargs)
         return CHART_HTML.format(data=data, options=kwargs,
