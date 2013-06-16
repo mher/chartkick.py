@@ -61,16 +61,3 @@ def chart(name, parser, token):
 register.tag('line_chart', functools.partial(chart, 'LineChart'))
 register.tag('pie_chart', functools.partial(chart, 'PieChart'))
 register.tag('column_chart', functools.partial(chart, 'ColumnChart'))
-
-
-@register.simple_tag
-def include_chartkick_scripts(library=None):
-    if not library or library.lower() == 'googlecharts':
-        js = '<script src="http://www.google.com/jsapi"></script>'
-    elif library.lower() == 'highcharts':
-        js = '<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>\n\t'\
-             '<script src="http://code.highcharts.com/highcharts.js"></script>\n\t'
-    else:
-        raise template.TemplateSyntaxError("Invalid argument: '%s'" % library)
-    js += '<script src="{static}/chartkick.js"></script>'
-    return js.format(static=settings.STATIC_URL.rstrip('/'))

@@ -22,19 +22,6 @@ class TestsBase(object):
     def render(self, template, context=None):
         raise NotImplementedError
 
-    def test_include_chartkick_scripts(self):
-        header = self.render('{% include_chartkick_scripts %}')
-        self.assertIn('google.com', header)
-        self.assertNotIn('highcharts.com', header)
-
-        header = self.render('{% include_chartkick_scripts "googlecharts" %}')
-        self.assertIn('google.com', header)
-        self.assertNotIn('highcharts.com', header)
-
-        header = self.render('{% include_chartkick_scripts "highcharts" %}')
-        self.assertIn('highcharts.com', header)
-        self.assertNotIn('google.com', header)
-
     def test_missing_vaiable(self):
         self.assertRaises(self.TemplateSyntaxError, self.render, '{% line_chart %}')
 
