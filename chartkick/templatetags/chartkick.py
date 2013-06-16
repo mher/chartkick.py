@@ -8,24 +8,14 @@ from django import template
 from django.conf import settings
 
 
+from ..template import CHART_HTML
+
+
 register = template.Library()
 
 
 class ChartNode(template.Node):
     id = itertools.count()
-    html = """
-<div id="{id}" style="height: {height}; text-align: center; color: #999;
-                      line-height: {height}; font-size: 14px;
-                      font-family: Lucida Grande, Lucida Sans Unicode,
-                      Verdana, Arial, Helvetica, sans-serif;">
-    Loading...
-</div>
-<script>
-//<![CDATA[
-new Chartkick.{name}(document.getElementById("{id}"), {data}, {options});
-//]]>
-</script>
-"""
 
     def __init__(self, name, variable, options=None):
         self.name = name
@@ -44,8 +34,8 @@ new Chartkick.{name}(document.getElementById("{id}"), {data}, {options});
                 options[name] = value.resolve(context)
 
         data = json.dumps(self.variable.resolve(context))
-        return self.html.format(name=self.name, data=data,
-                                options=json.dumps(options), **options)
+        return CHART_HTML.format(name=self.name, data=data,
+                                 options=json.dumps(options), **options)
 
 
 def chart(name, parser, token):
