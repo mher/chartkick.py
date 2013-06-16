@@ -23,7 +23,7 @@ classes = """
     Development Status :: 3 - Alpha
     Intended Audience :: Developers
     License :: OSI Approved :: MIT License
-    Topic :: Charts :: Google Charts :: Highcharts
+    Topic :: Software Development :: Libraries
     Programming Language :: Python
     Programming Language :: Python :: 2
     Programming Language :: Python :: 2.6
