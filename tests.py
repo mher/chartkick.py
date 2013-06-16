@@ -1,7 +1,11 @@
 import unittest
 
-from django.template import Template, Context, TemplateSyntaxError
+from django.template import Template, Context
+from django.template import TemplateSyntaxError as DjangoTemplateSyntaxError
 from django.conf import settings
+
+from jinja2 import TemplateSyntaxError as Jinja2TemplateSyntaxError
+from jinja2 import Environment
 
 import chartkick
 
@@ -11,15 +15,12 @@ settings.INSTALLED_APPS = ('chartkick',)
 settings.STATICFILES_DIRS = (chartkick.js(),)
 settings.STATIC_URL = ''
 
+class TestsBase(object):
 
-class TestCharts(unittest.TestCase):
+    TemplateSyntaxError = None
 
     def render(self, template, context=None):
-        context = context or {}
-        template = '{% load chartkick %}' + template
-        t = Template(template)
-        c = Context(context)
-        return t.render(c)
+        raise NotImplementedError
 
     def test_include_chartkick_scripts(self):
         header = self.render('{% include_chartkick_scripts %}')
@@ -35,7 +36,7 @@ class TestCharts(unittest.TestCase):
         self.assertNotIn('google.com', header)
 
     def test_missing_vaiable(self):
-        self.assertRaises(TemplateSyntaxError, self.render, '{% line_chart %}')
+        self.assertRaises(self.TemplateSyntaxError, self.render, '{% line_chart %}')
 
     def test_empty(self):
         chart = self.render('{% line_chart data %}', dict(data={}))
@@ -70,7 +71,7 @@ class TestCharts(unittest.TestCase):
         self.assertIn('bar', chart)
 
     def test_missing_with(self):
-        self.assertRaises(TemplateSyntaxError,
+        self.assertRaises(self.TemplateSyntaxError,
                           self.render, '{% line_chart data x=y %}')
 
     def test_options_embeded(self):
@@ -98,7 +99,30 @@ class TestCharts(unittest.TestCase):
 
     def test_id(self):
         chart = self.render('{% line_chart "" with id=123 %}')
-        self.assertIn('"id": 123', chart)
+        self.assertIn('123', chart)
+        self.assertIn('id', chart)
+
+
+class DjangoTests(unittest.TestCase, TestsBase):
+
+    TemplateSyntaxError = DjangoTemplateSyntaxError
+
+    def render(self, template, context=None):
+        context = context or {}
+        template = '{% load chartkick %}' + template
+        t = Template(template)
+        c = Context(context)
+        return t.render(c)
+
+
+class Jinja2Tests(unittest.TestCase, TestsBase):
+
+    TemplateSyntaxError = Jinja2TemplateSyntaxError
+
+    def render(self, template, context=None):
+        context = context or {}
+        env = Environment(extensions=['chartkick.ext.charts'])
+        return env.from_string(template).render(context)
 
 
 if __name__ == '__main__':
