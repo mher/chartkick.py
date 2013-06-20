@@ -5,8 +5,6 @@ import functools
 import itertools
 
 from django import template
-from django.conf import settings
-
 
 from ..template import CHART_HTML
 
