@@ -26,9 +26,16 @@ class ChartNode(template.Node):
         self.options = options or {}
 
         for name, value in self.options.items():
-            self.options[name] = template.Variable(value)
+            try:
+                self.options[name] = ast.literal_eval(value)
+            except ValueError:
+                self.options[name] = template.Variable(value)
 
     def render(self, context):
+        for name, value in self.options.items():
+            if isinstance(value, template.Variable):
+                self.options[name] = value.resolve(context)
+
         options = dict(id='chart-%s' % self.id.next(), height='300px')
         id = self.options.get('id', None) or options['id']
 
