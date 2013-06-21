@@ -1,12 +1,16 @@
 from __future__ import absolute_import
 
+import os
+import ast
 import json
 import functools
 import itertools
 
 from django import template
+from django.template.loaders.filesystem import Loader
 
 from ..template import CHART_HTML
+from ..options import Options
 
 
 register = template.Library()
@@ -14,6 +18,7 @@ register = template.Library()
 
 class ChartNode(template.Node):
     id = itertools.count()
+    _library = None
 
     def __init__(self, name, variable, options=None):
         self.name = name
@@ -25,15 +30,31 @@ class ChartNode(template.Node):
 
     def render(self, context):
         options = dict(id='chart-%s' % self.id.next(), height='300px')
-        options.update(self.options)
+        id = self.options.get('id', None) or options['id']
 
-        for name, value in options.items():
-            if isinstance(value, template.Variable):
-                options[name] = value.resolve(context)
+        # apply options from chartkick.json
+        options.update(library=self.library(id))
+        # apply options from a tag
+        options.update(self.options)
 
         data = json.dumps(self.variable.resolve(context))
         return CHART_HTML.format(name=self.name, data=data,
                                  options=json.dumps(options), **options)
+
+    @classmethod
+    def library(cls, chart_id):
+        if cls._library is None:
+            loader = Loader()
+            for filename in loader.get_template_sources('chartkick.json'):
+                if os.path.exists(filename):
+                    oprtions = Options()
+                    oprtions.load(filename)
+                    cls._library = oprtions
+                    break
+            else:
+                cls._library = Options()
+
+        return cls._library.get(chart_id, {})
 
 
 def chart(name, parser, token):
