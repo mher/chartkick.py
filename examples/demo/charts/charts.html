@@ -1,0 +1,23 @@
+{% load chartkick %}
+
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <script src="http://www.google.com/jsapi"></script>
+        <script src="static/chartkick.js"></script>
+
+        <!--
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+        <script src="http://code.highcharts.com/highcharts.js"></script>
+        <script src="static/chartkick.js"></script>
+        -->
+    </head>
+    <body>
+        {% line_chart exchange with min=0.4 id='rates' %}
+        {% pie_chart browser_stats with library={"title":"Browser Statistics, May 2013"} %}
+        {% column_chart browser_stats %}
+        {% line_chart temperature with id='temperature' %}
+
+        <a href="https://github.com/mher/chartkick.py"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"></a>
+    </body>
+</html>

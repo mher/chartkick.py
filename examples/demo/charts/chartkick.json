@@ -1,0 +1,16 @@
+[
+    {
+        "id": "temperature",
+        "title": "Monthly Average Temperature",
+        "titlePosition": "in",
+        "vAxis": {
+            "title": "Temperature (°C)"
+        }
+    },
+
+    {
+        "id": "rates",
+        "title": "USD to EUR exchange rates",
+        "titlePosition": "out"
+    }
+]
