@@ -11,7 +11,7 @@ Also available in Ruby_ and pure JavaScript_
 .. _Chartkick: http://chartkick.com
 .. _Google Charts: https://developers.google.com/chart/
 .. _Highcharts: http://highcharts.com
-.. _Demo: http://github.io/mher/chartkick.py
+.. _Demo: http://mher.github.io/chartkick.py/
 .. _Ruby: http://chartkick.com
 .. _Javascript: https://github.com/ankane/chartkick.js
 
