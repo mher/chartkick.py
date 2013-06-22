@@ -1,6 +1,9 @@
 Chartkick.py
 ============
 
+.. image:: https://travis-ci.org/mher/chartkick.py.png?branch=master
+        :target: https://travis-ci.org/mher/chartkick.py
+
 Create beautiful Javascript charts with minimal code. Demo_!
 
 Supports `Google Charts`_ and Highcharts_
