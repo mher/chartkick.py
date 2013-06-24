@@ -6,6 +6,7 @@ from django.conf import settings
 
 from jinja2 import TemplateSyntaxError as Jinja2TemplateSyntaxError
 from jinja2 import Environment
+from jinja2 import FileSystemLoader
 
 import chartkick
 
@@ -68,7 +69,13 @@ class TestsBase(object):
                           self.render, '{% line_chart data x=y %}')
 
     def test_options_embeded(self):
-        pass
+        chart = self.render('{% line_chart foo with library={"title":"eltit"} %}',
+                            dict(foo='bar'))
+        self.assertNotIn('foo', chart)
+        self.assertIn('bar', chart)
+        self.assertIn('library', chart)
+        self.assertIn('title', chart)
+        self.assertIn('eltit', chart)
 
     def test_options_context(self):
         chart = self.render('{% line_chart "" with foo=bar %}',
@@ -115,6 +122,7 @@ class Jinja2Tests(unittest.TestCase, TestsBase):
     def render(self, template, context=None):
         context = context or {}
         env = Environment(extensions=['chartkick.ext.charts'])
+        env.loader = FileSystemLoader('.')
         return env.from_string(template).render(context)
 
 
