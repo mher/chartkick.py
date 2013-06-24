@@ -57,7 +57,9 @@ class TestsBase(object):
         self.assertIn('Chartkick.ColumnChart', chart)
 
     def test_data_embeded(self):
-        pass
+        chart = self.render('{% line_chart {"foo":35,"bar":12} %}')
+        self.assertIn('foo', chart)
+        self.assertIn('bar', chart)
 
     def test_data_context(self):
         chart = self.render('{% line_chart foo %}', dict(foo='bar'))
