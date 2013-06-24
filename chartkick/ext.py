@@ -1,17 +1,23 @@
+# -*- coding: utf-8 -*-
+
 from __future__ import absolute_import
 
+import json
 import itertools
 
 from jinja2 import nodes
 from jinja2.ext import Extension
+from jinja2.exceptions import TemplateNotFound
 
 from .template import CHART_HTML
+from .options import Options
 
 
 class ChartExtension(Extension):
     tags = set(['line_chart', 'pie_chart', 'column_chart'])
 
     id = itertools.count()
+    _library = None
 
     def __init__(self, environment):
             super(ChartExtension, self).__init__(environment)
@@ -52,8 +58,18 @@ class ChartExtension(Extension):
         # jinja2 prepends 'l_' to keys
         kwargs = dict((k[2:], v) for (k, v) in kwargs.items())
 
+        if self._library is None:
+            self._library = self.load_library()
+        id = kwargs.get('id', self.environment.options['id'])
+        library = self._library.get(id, {})
+
+        # apply options from a tag
+        library.update(kwargs.get('library', {}))
+        # apply options from chartkick.json
+        kwargs.update(library=library)
+
         self.environment.options.update(kwargs)
-        return CHART_HTML.format(data=data, options=kwargs,
+        return CHART_HTML.format(data=data, options=json.dumps(kwargs),
                                  **self.environment.options)
 
     def _chart_name(self, tag_name):
@@ -63,6 +79,17 @@ class ChartExtension(Extension):
     def _chart_id(self):
         "generates a chart id"
         return 'chart-%s' % self.id.next()
+
+    def load_library(self):
+        "loads configuration options"
+        try:
+            filename = self.environment.get_template('chartkick.json').filename
+        except TemplateNotFound:
+            return {}
+        else:
+            options = Options()
+            options.load(filename)
+            return options
 
 
 charts = ChartExtension
