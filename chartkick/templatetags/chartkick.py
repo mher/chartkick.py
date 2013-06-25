@@ -30,6 +30,8 @@ class ChartNode(template.Node):
                 self.options[name] = ast.literal_eval(value)
             except ValueError:
                 self.options[name] = template.Variable(value)
+            except SyntaxError as e:
+                raise template.TemplateSyntaxError(e)
 
     def render(self, context):
         for name, value in self.options.items():
@@ -78,11 +80,25 @@ def chart(name, parser, token):
             raise template.TemplateSyntaxError("Expected 'with' statement")
 
         try:
-            options = dict(map(lambda x: x.split('='), args[3:]))
+            options = parse_options(' '.join(args[3:]))
         except ValueError:
-            raise template.TemplateSyntaxError('Invalid arguments')
+            raise template.TemplateSyntaxError('Invalid options')
 
     return ChartNode(name=name, variable=args[1], options=options)
+
+
+def parse_options(source):
+    """parses chart tag options"""
+    options = {}
+    tokens = [t.strip() for t in source.split('=')]
+
+    name = tokens[0]
+    for token in tokens[1:-1]:
+        value, next_name = token.rsplit(' ', 1)
+        options[name.strip()] = value
+        name = next_name
+    options[name.strip()] = tokens[-1].strip()
+    return options
 
 
 register.tag('line_chart', functools.partial(chart, 'LineChart'))
