@@ -72,7 +72,7 @@ class TestsBase(object):
                           self.render, '{% line_chart data x=y %}')
 
     def test_options_embeded(self):
-        chart = self.render('{% line_chart foo with library={"title":"eltit"} %}',
+        chart = self.render('{% line_chart foo with library={"title": "eltit"} %}',
                             dict(foo='bar'))
         self.assertNotIn('foo', chart)
         self.assertIn('bar', chart)
@@ -104,6 +104,20 @@ class TestsBase(object):
         chart = self.render('{% line_chart "" with id=123 %}')
         self.assertIn('123', chart)
         self.assertIn('id', chart)
+
+    def test_invalid_options(self):
+        self.assertRaises(self.TemplateSyntaxError, self.render,
+                '{% line_chart "" with library= %}')
+        self.assertRaises(self.TemplateSyntaxError, self.render,
+                '{% line_chart "" with library={"title":"test" %}')
+        self.assertRaises(self.TemplateSyntaxError, self.render,
+                '{% line_chart "" with library="title":"test" %}')
+        self.assertRaises(self.TemplateSyntaxError, self.render,
+                '{% line_chart "" with library={"title: "test"} %}')
+        self.assertRaises(self.TemplateSyntaxError, self.render,
+                '{% line_chart "" with library={"title": "test} %}')
+        self.assertRaises(self.TemplateSyntaxError, self.render,
+                '{% line_chart "" with library={"title": } %}')
 
 
 class DjangoTests(unittest.TestCase, TestsBase):
