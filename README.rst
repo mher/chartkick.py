@@ -33,6 +33,14 @@ Column chart: ::
 
     {% column_chart data with min=400 max=1000 %}
 
+Bar chart: ::
+
+    {% bar_chart data %}
+
+Area chart: ::
+
+    {% area_chart data %}
+
 Data
 ----
 
