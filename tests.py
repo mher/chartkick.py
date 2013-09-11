@@ -43,18 +43,40 @@ class TestsBase(object):
         self.assertIn('Chartkick.LineChart', chart)
         self.assertNotIn('Chartkick.PieChart', chart)
         self.assertNotIn('Chartkick.ColumnChart', chart)
+        self.assertNotIn('Chartkick.BarChart', chart)
+        self.assertNotIn('Chartkick.AreaChart', chart)
 
     def test_pie_chart(self):
         chart = self.render('{% pie_chart data %}', dict(data={}))
         self.assertNotIn('Chartkick.LineChart', chart)
         self.assertIn('Chartkick.PieChart', chart)
         self.assertNotIn('Chartkick.ColumnChart', chart)
+        self.assertNotIn('Chartkick.BarChart', chart)
+        self.assertNotIn('Chartkick.AreaChart', chart)
 
     def test_column_chart(self):
         chart = self.render('{% column_chart data %}', dict(data={}))
         self.assertNotIn('Chartkick.LineChart', chart)
         self.assertNotIn('Chartkick.PieChart', chart)
         self.assertIn('Chartkick.ColumnChart', chart)
+        self.assertNotIn('Chartkick.BarChart', chart)
+        self.assertNotIn('Chartkick.AreaChart', chart)
+
+    def test_bar_chart(self):
+        chart = self.render('{% bar_chart data %}', dict(data={}))
+        self.assertNotIn('Chartkick.LineChart', chart)
+        self.assertNotIn('Chartkick.PieChart', chart)
+        self.assertNotIn('Chartkick.ColumnChart', chart)
+        self.assertIn('Chartkick.BarChart', chart)
+        self.assertNotIn('Chartkick.AreaChart', chart)
+
+    def test_area_chart(self):
+        chart = self.render('{% area_chart data %}', dict(data={}))
+        self.assertNotIn('Chartkick.LineChart', chart)
+        self.assertNotIn('Chartkick.PieChart', chart)
+        self.assertNotIn('Chartkick.ColumnChart', chart)
+        self.assertNotIn('Chartkick.BarChart', chart)
+        self.assertIn('Chartkick.AreaChart', chart)
 
     @unittest.skip('Embedded data is not implemented yet')
     def test_data_embeded(self):
