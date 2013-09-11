@@ -104,3 +104,5 @@ def parse_options(source):
 register.tag('line_chart', functools.partial(chart, 'LineChart'))
 register.tag('pie_chart', functools.partial(chart, 'PieChart'))
 register.tag('column_chart', functools.partial(chart, 'ColumnChart'))
+register.tag('bar_chart', functools.partial(chart, 'BarChart'))
+register.tag('area_chart', functools.partial(chart, 'AreaChart'))

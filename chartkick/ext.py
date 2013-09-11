@@ -14,7 +14,8 @@ from .options import Options
 
 
 class ChartExtension(Extension):
-    tags = set(['line_chart', 'pie_chart', 'column_chart'])
+    tags = set(['line_chart', 'pie_chart', 'column_chart',
+                'bar_chart', 'area_chart'])
 
     id = itertools.count()
     _library = None
