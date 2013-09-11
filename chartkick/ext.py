@@ -20,11 +20,11 @@ class ChartExtension(Extension):
     _library = None
 
     def __init__(self, environment):
-            super(ChartExtension, self).__init__(environment)
+        super(ChartExtension, self).__init__(environment)
 
-            environment.extend(
-                options=dict(height='300px'),
-            )
+        environment.extend(
+            options=dict(height='300px'),
+        )
 
     def parse(self, parser):
         # parse chart name
