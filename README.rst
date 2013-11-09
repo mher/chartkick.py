@@ -100,3 +100,9 @@ Load JS scripts:
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <script src="http://code.highcharts.com/highcharts.js"></script>
     <script src="static/chartkick.js"></script>
+
+
+.. image:: https://d2weczhvl823v0.cloudfront.net/mher/chartkick.py/trend.png
+   :alt: Bitdeli badge
+   :target: https://bitdeli.com/free
+
