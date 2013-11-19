@@ -4,6 +4,7 @@ from __future__ import absolute_import
 
 import json
 import itertools
+import functools
 
 from jinja2 import nodes
 from jinja2.ext import Extension
@@ -27,6 +28,10 @@ class ChartExtension(Extension):
             options=dict(height='300px'),
         )
 
+        for tag in self.tags:
+            setattr(self, tag + '_support',
+                    functools.partial(self._chart_support, tag))
+
     def parse(self, parser):
         # parse chart name
         chart_tag = parser.stream.next()
@@ -49,19 +54,24 @@ class ChartExtension(Extension):
 
             args.append(nodes.Assign(target, expr, lineno=lineno))
 
-        self.environment.options['name'] = self._chart_name(chart_tag.value)
-        self.environment.options['id'] = self._chart_id()
+        support_func = chart_tag.value + '_support'
 
-        return nodes.CallBlock(self.call_method('_render', args),
+        return nodes.CallBlock(self.call_method(support_func, args),
                                [], [], []).set_lineno(chart_tag.lineno)
 
-    def _render(self, data, caller, **kwargs):
+    def _chart_support(self, name, data, caller, **kwargs):
+        "template chart support function"
+        id = 'chart-%s' % self.id.next()
+        name = self._chart_class_name(name)
+        options = dict(self.environment.options)
+        options.update(name=name, id=id)
+
         # jinja2 prepends 'l_' to keys
         kwargs = dict((k[2:], v) for (k, v) in kwargs.items())
 
         if self._library is None:
             self._library = self.load_library()
-        id = kwargs.get('id', self.environment.options['id'])
+        id = kwargs.get('id', '')
         library = self._library.get(id, {})
 
         # apply options from a tag
@@ -69,17 +79,13 @@ class ChartExtension(Extension):
         # apply options from chartkick.json
         kwargs.update(library=library)
 
-        self.environment.options.update(kwargs)
+        options.update(kwargs)
         return CHART_HTML.format(data=data, options=json.dumps(kwargs),
-                                 **self.environment.options)
+                                 **options)
 
-    def _chart_name(self, tag_name):
-        "converts chart tag name to chart name"
+    def _chart_class_name(self, tag_name):
+        "converts chart tag name to javascript class name"
         return ''.join(map(str.title, tag_name.split('_')))
-
-    def _chart_id(self):
-        "generates a chart id"
-        return 'chart-%s' % self.id.next()
 
     def load_library(self):
         "loads configuration options"
