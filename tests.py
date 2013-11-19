@@ -1,3 +1,4 @@
+import re
 import unittest
 
 from django.template import Template, Context
@@ -123,9 +124,13 @@ class TestsBase(object):
             self.assertIn('foo', chart)
 
     def test_id(self):
-        chart = self.render('{% line_chart "" with id=123 %}')
-        self.assertIn('123', chart)
-        self.assertIn('id', chart)
+        chart1 = self.render('{% line_chart "" with id=123 %}')
+        chart2 = self.render('{% line_chart "" %}{% line_chart "" %}')
+        ids = re.findall('id=\"(.*?)\"', chart2)
+
+        self.assertIn('123', chart1)
+        self.assertIn('id', chart1)
+        self.assertNotEqual(ids[0], ids[1])
 
     def test_invalid_options(self):
         self.assertRaises(self.TemplateSyntaxError, self.render,
