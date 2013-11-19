@@ -79,6 +79,20 @@ class TestsBase(object):
         self.assertNotIn('Chartkick.BarChart', chart)
         self.assertIn('Chartkick.AreaChart', chart)
 
+    def test_all_charts(self):
+        template = """{% line_chart data %}
+                      {% pie_chart data %}
+                      {% column_chart data %}
+                      {% bar_chart data %}
+                      {% area_chart data %}"""
+        chart = self.render(template, dict(data={}))
+
+        self.assertIn('Chartkick.LineChart', chart)
+        self.assertIn('Chartkick.PieChart', chart)
+        self.assertIn('Chartkick.ColumnChart', chart)
+        self.assertIn('Chartkick.BarChart', chart)
+        self.assertIn('Chartkick.AreaChart', chart)
+
     @unittest.skip('Embedded data is not implemented yet')
     def test_data_embeded(self):
         chart = self.render('{% line_chart {"foo":35,"bar":12} %}')
