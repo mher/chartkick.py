@@ -3,7 +3,8 @@ Chartkick.py
 
 .. image:: https://travis-ci.org/mher/chartkick.py.png?branch=master
         :target: https://travis-ci.org/mher/chartkick.py
-
+.. image:: https://pypip.in/d/chartkick/badge.png
+        :target: https://crate.io/packages/chartkick/
 .. image:: https://d2weczhvl823v0.cloudfront.net/mher/chartkick.py/trend.png
    :alt: Bitdeli badge
    :target: https://bitdeli.com/free
