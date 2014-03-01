@@ -1,6 +1,8 @@
 Chartkick.py
 ============
 
+.. image:: https://badge.fury.io/py/chartkick.png
+        :target: http://badge.fury.io/py/chartkick
 .. image:: https://travis-ci.org/mher/chartkick.py.png?branch=master
         :target: https://travis-ci.org/mher/chartkick.py
 .. image:: https://pypip.in/d/chartkick/badge.png
