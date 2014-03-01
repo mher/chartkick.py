@@ -4,6 +4,10 @@ Chartkick.py
 .. image:: https://travis-ci.org/mher/chartkick.py.png?branch=master
         :target: https://travis-ci.org/mher/chartkick.py
 
+.. image:: https://d2weczhvl823v0.cloudfront.net/mher/chartkick.py/trend.png
+   :alt: Bitdeli badge
+   :target: https://bitdeli.com/free
+
 Create beautiful Javascript charts with minimal code. Demo_!
 
 Supports `Google Charts`_ and Highcharts_
@@ -100,9 +104,4 @@ Load JS scripts:
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <script src="http://code.highcharts.com/highcharts.js"></script>
     <script src="static/chartkick.js"></script>
-
-
-.. image:: https://d2weczhvl823v0.cloudfront.net/mher/chartkick.py/trend.png
-   :alt: Bitdeli badge
-   :target: https://bitdeli.com/free
 
