@@ -69,6 +69,10 @@ Charting library options can be passed through the *library* variable: ::
 
     {% column_chart data with library={"title":"Super chart","width":"400px"} %}
 
+.. Note:: Google Charts and Highcharts have different APIs. You may need
+          to change the value of `library` when you switch from one
+          library to another.
+
 Or using *chartkick.json* file. Chartkick tries to locate *chartkick.json*
 file in template path and match options by id.
 
