@@ -96,7 +96,8 @@ Install chartkick: ::
 
 - Flask: Add chartkick to *jinja_env* and *static_folder*: ::
 
-    app = Flask(__name__, static_folder=chartkick.js(), static_url_path='/static')
+    ck = Blueprint('ck_page', __name__, static_folder=chartkick.js(), static_url_path='/static')
+    app.register_blueprint(ck, url_prefix='/ck')
     app.jinja_env.add_extension("chartkick.ext.charts")
 
 Load JS scripts:
@@ -104,11 +105,11 @@ Load JS scripts:
 - Google Charts ::
 
     <script src="http://www.google.com/jsapi"></script>
-    <script src="static/chartkick.js"></script>
+    <script src="ck/static/chartkick.js"></script>
 
 - Highcharts ::
 
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <script src="http://code.highcharts.com/highcharts.js"></script>
-    <script src="static/chartkick.js"></script>
+    <script src="ck/static/chartkick.js"></script>
 
