@@ -34,13 +34,13 @@ class ChartExtension(Extension):
 
     def parse(self, parser):
         # parse chart name
-        chart_tag = parser.stream.next()
+        chart_tag = next(parser.stream)
 
         args = [parser.parse_expression()]
 
         # parse 'with' statement
         if parser.stream.current.type != 'block_end':
-            token = parser.stream.next()
+            token = next(parser.stream)
             if token.value != 'with':
                 parser.fail("expected 'with' statement", token.lineno)
 
@@ -61,7 +61,7 @@ class ChartExtension(Extension):
 
     def _chart_support(self, name, data, caller, **kwargs):
         "template chart support function"
-        id = 'chart-%s' % self.id.next()
+        id = 'chart-%s' % next(self.id)
         name = self._chart_class_name(name)
         options = dict(self.environment.options)
         options.update(name=name, id=id)
