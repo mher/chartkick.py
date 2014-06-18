@@ -38,7 +38,7 @@ class ChartNode(template.Node):
             if isinstance(value, template.Variable):
                 self.options[name] = value.resolve(context)
 
-        options = dict(id='chart-%s' % self.id.next(), height='300px')
+        options = dict(id='chart-%s' % next(self.id), height='300px')
         id = self.options.get('id', None) or options['id']
 
         # apply options from chartkick.json
