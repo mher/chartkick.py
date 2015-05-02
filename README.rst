@@ -7,8 +7,8 @@ Chartkick.py
 .. image:: https://img.shields.io/pypi/dm/chartkick.svg
         :target: https://pypi.python.org/pypi/chartkick
 
-.. image:: https://travis-ci.org/mher/chartkick.svg?branch=master
-        :target: https://travis-ci.org/mher/chartkick
+.. image:: https://travis-ci.org/mher/chartkick.py.svg?branch=master
+        :target: https://travis-ci.org/mher/chartkick.py
 
 Create beautiful Javascript charts with minimal code. Demo_!
 
