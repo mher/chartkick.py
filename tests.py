@@ -11,6 +11,7 @@ from jinja2 import FileSystemLoader
 
 import chartkick
 
+
 # python 2.6 support
 if not hasattr(unittest.TestCase, 'assertIn'):
     import unittest2 as unittest
@@ -20,6 +21,10 @@ settings.configure()
 settings.INSTALLED_APPS = ('chartkick',)
 settings.STATICFILES_DIRS = (chartkick.js(),)
 settings.STATIC_URL = ''
+
+
+import django
+django.setup()
 
 
 class TestsBase(object):
