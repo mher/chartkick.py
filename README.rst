@@ -1,12 +1,14 @@
 Chartkick.py
 ============
 
-.. image:: https://badge.fury.io/py/chartkick.png
-        :target: http://badge.fury.io/py/chartkick
-.. image:: https://travis-ci.org/mher/chartkick.py.png?branch=master
-        :target: https://travis-ci.org/mher/chartkick.py
-.. image:: https://pypip.in/d/chartkick/badge.png
-        :target: https://crate.io/packages/chartkick/
+.. image:: https://img.shields.io/pypi/v/chartkick.svg
+    :target: https://pypi.python.org/pypi/chartkick
+
+.. image:: https://img.shields.io/pypi/dm/chartkick.svg
+        :target: https://pypi.python.org/pypi/chartkick
+
+.. image:: https://travis-ci.org/mher/chartkick.svg?branch=master
+        :target: https://travis-ci.org/mher/chartkick
 
 Create beautiful Javascript charts with minimal code. Demo_!
 
