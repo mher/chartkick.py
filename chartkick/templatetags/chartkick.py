@@ -7,6 +7,7 @@ import functools
 import itertools
 
 from django import template
+from django.template import Engine
 from django.template.loaders.filesystem import Loader
 
 from ..template import CHART_HTML
@@ -53,7 +54,7 @@ class ChartNode(template.Node):
     @classmethod
     def library(cls, chart_id):
         if cls._library is None:
-            loader = Loader()
+            loader = Loader(Engine())
             for filename in loader.get_template_sources('chartkick.json'):
                 if os.path.exists(filename):
                     oprtions = Options()
