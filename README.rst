@@ -12,12 +12,13 @@ Chartkick.py
 
 Create beautiful Javascript charts with minimal code. Demo_!
 
-Supports `Google Charts`_ and Highcharts_
+Supports `Chart.js`_, `Google Charts`_, and Highcharts_
 
 Works with Django, Flask/Jinja2 and most browsers (including IE 6).
 Also available in Ruby_ and pure JavaScript_
 
 .. _Chartkick: http://chartkick.com
+.. _Chart.js: http://www.chartjs.org
 .. _Google Charts: https://developers.google.com/chart/
 .. _Highcharts: http://highcharts.com
 .. _Demo: http://mher.github.io/chartkick.py/
@@ -100,6 +101,11 @@ Install chartkick: ::
     app.jinja_env.add_extension("chartkick.ext.charts")
 
 Load JS scripts:
+
+- Chart.js ::
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.4/Chart.bundle.min.js"></script>
+    <script src="ck/static/chartkick.js"></script>
 
 - Google Charts ::
 
