@@ -1,3 +1,4 @@
+# coding=utf-8
 from django.shortcuts import render
 
 
@@ -65,7 +66,7 @@ def charts(request):
                                 '2012-09-01 00:00:00 -0700': 10.3,
                                 '2012-10-01 00:00:00 -0700': 6.6,
                                 '2012-11-01 00:00:00 -0700': 4.8},
-                    u'name': u'London'}]
+                    u'name': u'Լոնդոն'}]
 
     sizes = [['X-Small', 5], ['Small', 27], ['Medium', 10],
              ['Large', 14], ['X-Large', 10]]
