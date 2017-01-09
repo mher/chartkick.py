@@ -4,9 +4,6 @@ Chartkick.py
 .. image:: https://img.shields.io/pypi/v/chartkick.svg
     :target: https://pypi.python.org/pypi/chartkick
 
-.. image:: https://img.shields.io/pypi/dm/chartkick.svg
-        :target: https://pypi.python.org/pypi/chartkick
-
 .. image:: https://travis-ci.org/mher/chartkick.py.svg?branch=master
         :target: https://travis-ci.org/mher/chartkick.py
 
