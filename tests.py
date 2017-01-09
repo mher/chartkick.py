@@ -21,6 +21,11 @@ settings.configure()
 settings.INSTALLED_APPS = ('chartkick',)
 settings.STATICFILES_DIRS = (chartkick.js(),)
 settings.STATIC_URL = ''
+settings.TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+    },
+]
 
 
 import django
