@@ -6,6 +6,7 @@ import json
 import itertools
 import functools
 
+import jinja2
 from jinja2 import nodes
 from jinja2.ext import Extension
 from jinja2.exceptions import TemplateNotFound
@@ -66,8 +67,11 @@ class ChartExtension(Extension):
         options = dict(self.environment.options)
         options.update(name=name, id=id)
 
-        # jinja2 prepends 'l_' to keys
-        kwargs = dict((k[2:], v) for (k, v) in kwargs.items())
+        # jinja2 prepends 'l_' or 'l_{{ n }}'(ver>=2.9) to keys
+        if jinja2.__version__ >= '2.9':
+            kwargs = dict((k[4:], v) for (k, v) in kwargs.items())
+        else:
+            kwargs = dict((k[2:], v) for (k, v) in kwargs.items())
 
         if self._library is None:
             self._library = self.load_library()
