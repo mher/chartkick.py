@@ -45,6 +45,10 @@ Area chart: ::
 
     {% area_chart data %}
 
+Scatter chart: ::
+
+    {% scatter_chart data %}
+
 Data
 ----
 
