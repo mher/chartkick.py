@@ -105,17 +105,16 @@ Load JS scripts:
 
 - Chart.js ::
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.4/Chart.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
     <script src="ck/static/chartkick.js"></script>
 
 - Google Charts ::
 
-    <script src="http://www.google.com/jsapi"></script>
+    <script src="https://www.gstatic.com/charts/loader.js"></script>
     <script src="ck/static/chartkick.js"></script>
 
 - Highcharts ::
 
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-    <script src="http://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
     <script src="ck/static/chartkick.js"></script>
 
